@@ -7,16 +7,17 @@ export function knightMoves(start, end) {
     const visited = new Set();
     const parent = {};
     const path = [];
-    let move = 0;
+    let positionExplored = 0;
 
 
     while (queue.length > 0) {
         const currentPosition = queue.shift();
         console.log("Processing position:", currentPosition);
-        move += 1;
+        positionExplored += 1;
 
         if (arraysEqual(currentPosition, end)) {
             console.log("Found target!");
+            
             // reconstruct the path and return/ going backward in the chain
             const reconstruction = (currentPositionStr) => {
                 console.log("Reconstructing from:", currentPositionStr);
@@ -25,10 +26,12 @@ export function knightMoves(start, end) {
                 console.log("Parent of current position:", parent[currentPositionStr]);
 
 
+                // when starting point is reach through backwards reconstruction
                 if (currentPositionStr === `${start[0]},${start[1]}`) {
                     path.push(currentPositionStr);
                     console.log('the path is now complete..');
-                    console.log(`the target is found in ${move} moves`);
+                    console.log(`the target is found in ${positionExplored} position explored`);
+                    console.log(`You made it in ${path.length - 1} moves!`);
                     return;
                 } 
 
